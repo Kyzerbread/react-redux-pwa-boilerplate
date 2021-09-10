@@ -4,46 +4,93 @@ import {
   Switch,
   Route,
   Redirect,
+  useRouteMatch,
 } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import {
   USER_DASHBOARD_URL,
   LOGIN_URL,
-  ADMIN_DASHBOARD_URL,
+  ADMIN_BASE_URL,
   TOS_URL,
   PP_URL,
 } from "./constants/urls";
+
+import Navigation from "./components/navigation/Navigation";
 
 export default function Routes() {
   return (
     <Router>
       <Switch>
+        {/* PUBLIC ROUTES */}
+        <Route path={LOGIN_URL}>
+          <Users />
+        </Route>
         <Route path={TOS_URL}>
           <About />
         </Route>
         <Route path={PP_URL}>
           <Users />
         </Route>
-        <Route path={LOGIN_URL}>
-          <Users />
+        {/* USER AUTHENTICATED APPLICATION */}
+        <ProtectedRoute exact path={USER_DASHBOARD_URL}>
+          <UserApplication />
+        </ProtectedRoute>
+        {/* ADMIN AUTHENTICATED APPLICATION */}
+        <AdminProtectedRoute path={ADMIN_BASE_URL}>
+          <AdminApplication />
+        </AdminProtectedRoute>
+
+        <Route path="*">
+          <NoMatch />
         </Route>
-        <RequireAuth>
-          <Route path={USER_DASHBOARD_URL}>
-            <Home />
-          </Route>
-        </RequireAuth>
-        <RequireAdminAuth>
-          <Route path={ADMIN_DASHBOARD_URL}>
-            <Home />
-          </Route>
-        </RequireAdminAuth>
       </Switch>
     </Router>
   );
 }
 
-function Home() {
+function UserApplication() {
+  let { path, url } = useRouteMatch();
+  return (
+    <Navigation>
+      <Switch>
+        <Route exact path={path}>
+          <UserDash />
+        </Route>
+        <Route path={`${path}/users`}></Route>
+      </Switch>
+    </Navigation>
+  );
+}
+
+function AdminApplication() {
+  let { path, url } = useRouteMatch();
+  return (
+    <Navigation>
+      <Switch>
+        <Route exact path={path}>
+          <AdminDash />
+        </Route>
+        <Route path={`${path}/users`}></Route>
+      </Switch>
+    </Navigation>
+  );
+}
+
+function NoMatch() {
+  return (
+    <div>
+      <h3>No match</h3>
+    </div>
+  );
+}
+
+function AdminDash() {
+  console.log("AdminDashboard");
+  return <h2>About</h2>;
+}
+
+function UserDash() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   return <h2>Is isAuthenticated: {isAuthenticated.toString()}</h2>;
 }
@@ -58,18 +105,26 @@ function Users() {
   return <h2>Users</h2>;
 }
 
-const RequireAuth = ({ children }) => {
+function ProtectedRoute({ children, ...rest }) {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  if (!isAuthenticated) {
-    return <Redirect to={LOGIN_URL} />;
-  }
-  return children;
-};
+  return (
+    <Route
+      {...rest}
+      render={() => {
+        return isAuthenticated ? children : <Redirect to="/login" />;
+      }}
+    />
+  );
+}
 
-const RequireAdminAuth = ({ children }) => {
+function AdminProtectedRoute({ children, ...rest }) {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  if (!isAuthenticated) {
-    return <Redirect to={LOGIN_URL} />;
-  }
-  return children;
-};
+  return (
+    <Route
+      {...rest}
+      render={() => {
+        return isAuthenticated ? children : <Redirect to="/login" />;
+      }}
+    />
+  );
+}

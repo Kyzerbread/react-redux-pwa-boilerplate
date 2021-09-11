@@ -6,6 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { loginWithEmailAndPassword } from "../../firebase";
 
+import { loginUser } from "../../actions/user";
+import { snackbarError } from "../../actions/application";
+
 export default function Login() {
   //   const register = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -14,7 +17,13 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    const user = loginWithEmailAndPassword(email, password);
+    try {
+      const user = await loginWithEmailAndPassword(email, password);
+      console.log("useruser", user);
+      dispatch(loginUser(user));
+    } catch (err) {
+      dispatch(snackbarError("Login Error", err.message));
+    }
   };
 
   return (

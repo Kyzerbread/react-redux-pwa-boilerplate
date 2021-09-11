@@ -9,20 +9,20 @@ export const applicationSlice = createSlice({
     snackbarType: "error",
   },
   reducers: {
-    snackbar: (state, action) => {
-      const {
-        snackbarMessage,
-        snackbarTitle,
-        snackbarType = "error",
-      } = action.payload;
+    openSnackbar: (state, action) => {
+      const { message, title, type = "error" } = action.payload;
 
-      state.snackbarTitle = snackbarMessage;
-      state.snackbarMessage = snackbarTitle;
-      state.snackbarType = snackbarType;
+      state.snackbarTitle = message;
+      state.snackbarMessage = title;
+      state.snackbarType = type;
+      state.snackbarIsOpen = true;
+    },
+    closeSnackbar: (state) => {
+      state.snackbarIsOpen = false;
     },
   },
 });
 
-export const { snackbar } = applicationSlice.actions;
+export const { openSnackbar, closeSnackbar } = applicationSlice.actions;
 
 export default applicationSlice.reducer;

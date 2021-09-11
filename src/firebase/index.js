@@ -27,8 +27,11 @@ export async function loginWithEmailAndPassword(email, password) {
       password
     );
     console.log("userCredential", userCredential);
+
     return userCredential;
-  } catch (err) {}
+  } catch (err) {
+    throw new Error(processFirebaseAuthError(err));
+  }
 }
 
 export async function registerWithEmailAndPassword(email, password) {
@@ -43,5 +46,17 @@ export async function registerWithEmailAndPassword(email, password) {
     console.log("FFFFFUHHHHHh");
     console.error(err);
     //
+  }
+}
+
+function processFirebaseAuthError(err) {
+  console.log(err.message);
+  switch (err.message) {
+    case "auth/invalid-email":
+      return "Invalid email";
+    case "auth/wrong-passwoord":
+      return "Email and password do not match";
+    default:
+      return err.message;
   }
 }

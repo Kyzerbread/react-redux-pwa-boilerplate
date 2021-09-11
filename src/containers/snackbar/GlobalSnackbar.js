@@ -1,22 +1,35 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Snackbar from "@mui/material/Snackbar";
-import { useSelector } from "react-redux";
+
+import { close } from "../../actions/application";
 
 function GlobalSnackbar() {
-  const open = useSelector((state) => state.application.isSnackbarOpen);
+  const dispatch = useDispatch();
+
+  const open = useSelector((state) => state.application.snackbarIsOpen);
+  const message = useSelector((state) => state.application.snackbarMessage);
+  const title = useSelector((state) => state.application.snackbarTitle);
+  // const open = useSelector((state) => state.application.snackbarIsOpen);
+  console.log("open", open);
 
   const handleClose = () => {
-    //
+    dispatch(close());
   };
 
   return (
-    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+    <Snackbar
+      open={open}
+      autoHideDuration={6000}
+      onClose={handleClose}
+      anchorOrigin={{ vertical: "bottom", horizontal: "middle" }}
+    >
       <Alert severity="error">
-        <AlertTitle>Error</AlertTitle>
-        This is an error alert — <strong>check it out!</strong>
+        <AlertTitle>{title}</AlertTitle>
+        {message}
       </Alert>
     </Snackbar>
   );

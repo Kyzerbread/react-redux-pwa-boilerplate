@@ -1,10 +1,9 @@
-import { initializeApp } from "firebase/app";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-console.log("HERER");
+import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -17,6 +16,7 @@ const firebaseConfig = {
 };
 
 const firebase = initializeApp(firebaseConfig);
+
 const auth = getAuth();
 
 export async function loginWithEmailAndPassword(email, password) {

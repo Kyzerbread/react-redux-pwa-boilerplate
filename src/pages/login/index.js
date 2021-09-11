@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { loginWithEmailAndPassword } from "../../firebase";
 
@@ -18,9 +18,9 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const user = await loginWithEmailAndPassword(email, password);
-      console.log("useruser", user);
-      dispatch(loginUser(user));
+      const credentials = await loginWithEmailAndPassword(email, password);
+      console.log("useruser", credentials.user);
+      dispatch(loginUser(credentials.user));
     } catch (err) {
       dispatch(snackbarError("Login Error", err.message));
     }

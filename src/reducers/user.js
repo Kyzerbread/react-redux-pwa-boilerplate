@@ -9,7 +9,7 @@ export const userSlice = createSlice({
   },
   reducers: {
     login: (state, action) => {
-      const { email } = action.payload; // the user object will be here
+      // const { email } = action.payload; // the user object will be here
 
       state.isAuthenticated = true;
     },

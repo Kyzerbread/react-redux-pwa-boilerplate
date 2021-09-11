@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
+import CircularProgress from "@mui/material/CircularProgress";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { amber, blueGrey } from "@mui/material/colors";
 
 import Routes from "../routes";
 import GlobalSnackbar from "./snackbar/GlobalSnackbar";
 
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+import { loginUser, logoutUser } from "../actions/user";
+import { applicationDoneLoading } from "../actions/application";
+
+const auth = getAuth();
+
 function App() {
+  const dispatch = useDispatch();
+
+  const isLoading = useSelector(
+    (state) => state.application.applicationIsLoading
+  );
+
   const theme = createTheme({
     palette: {
       primary: {
@@ -18,10 +33,29 @@ function App() {
     },
   });
 
+  useEffect(() => {
+    // authentication state listener
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        dispatch(loginUser(user));
+      } else {
+        dispatch(logoutUser());
+      }
+      dispatch(applicationDoneLoading());
+    });
+  }, [dispatch]);
+
   return (
     <ThemeProvider theme={theme}>
-      <Routes />
-      <GlobalSnackbar />
+      {isLoading ? (
+        <CircularProgress color="secondary" />
+      ) : (
+        <>
+          <Routes />
+          <GlobalSnackbar />{" "}
+        </>
+      )}
     </ThemeProvider>
   );
 }

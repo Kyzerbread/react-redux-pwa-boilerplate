@@ -25,7 +25,7 @@ function GlobalSnackbar() {
       open={open}
       autoHideDuration={6000}
       onClose={handleClose}
-      anchorOrigin={{ vertical: "bottom", horizontal: "middle" }}
+      anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
     >
       <Alert severity="error">
         <AlertTitle>{title}</AlertTitle>

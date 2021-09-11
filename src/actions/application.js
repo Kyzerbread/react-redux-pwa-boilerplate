@@ -1,4 +1,16 @@
-import { openSnackbar, closeSnackbar } from "../reducers/application";
+import {
+  openSnackbar,
+  closeSnackbar,
+  loadingCompleted,
+} from "../reducers/application";
+
+export function applicationDoneLoading() {
+  return async (dispatch) => {
+    dispatch(loadingCompleted());
+    try {
+    } catch (error) {}
+  };
+}
 
 export function close() {
   return async (dispatch) => {

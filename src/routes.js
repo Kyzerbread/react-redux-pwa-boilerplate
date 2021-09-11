@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import {
   USER_DASHBOARD_URL,
   LOGIN_URL,
+  REGISTER_URL,
   ADMIN_BASE_URL,
   TOS_URL,
   PP_URL,
@@ -18,13 +19,19 @@ import {
 
 import Navigation from "./components/navigation/Navigation";
 
+import Register from "./pages/register";
+import Login from "./pages/login";
+
 export default function Routes() {
   return (
     <Router>
       <Switch>
         {/* PUBLIC ROUTES */}
+        <Route path={REGISTER_URL}>
+          <Register />
+        </Route>
         <Route path={LOGIN_URL}>
-          <Users />
+          <Login />
         </Route>
         <Route path={TOS_URL}>
           <About />

@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { emailAndPasswordLogin } from "../firebase/firebase";
-
 export const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -10,11 +8,10 @@ export const userSlice = createSlice({
     lastName: "",
   },
   reducers: {
-    register: () => {},
-    login: (state) => {
+    login: (state, action) => {
+      const { email } = action.payload; // the user object will be here
+
       state.isAuthenticated = true;
-      state.firstName = "Jeremy";
-      state.lastName = "Kyzer";
     },
     logout: (state) => {
       state.isAuthenticated = false;

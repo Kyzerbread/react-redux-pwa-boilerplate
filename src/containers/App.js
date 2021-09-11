@@ -1,13 +1,12 @@
 import React from "react";
 
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
-import { amber, blueGrey } from "@material-ui/core/colors";
-import { useSelector, useDispatch } from "react-redux";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { amber, blueGrey } from "@mui/material/colors";
+
 import Routes from "../routes";
+import GlobalSnackbar from "./snackbar/GlobalSnackbar";
 
 function App() {
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-
   const theme = createTheme({
     palette: {
       primary: {
@@ -22,6 +21,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Routes />
+      <GlobalSnackbar />
     </ThemeProvider>
   );
 }

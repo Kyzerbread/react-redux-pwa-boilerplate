@@ -17,10 +17,12 @@ import {
   PP_URL,
 } from "./constants/urls";
 
-import Navigation from "./components/navigation/Navigation";
+import Navigation from "./containers/navigation/Navigation";
 
 import Register from "./pages/register";
 import Login from "./pages/login";
+
+import UserDashboard from "./containers/user/dashboard/UserDashboard";
 
 export default function Routes() {
   return (
@@ -62,7 +64,7 @@ function UserApplication() {
     <Navigation>
       <Switch>
         <Route exact path={path}>
-          <UserDash />
+          <UserDashboard />
         </Route>
         <Route path={`${path}/users`}></Route>
       </Switch>
@@ -95,11 +97,6 @@ function NoMatch() {
 function AdminDash() {
   console.log("AdminDashboard");
   return <h2>About</h2>;
-}
-
-function UserDash() {
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  return <h2>Is isAuthenticated: {isAuthenticated.toString()}</h2>;
 }
 
 function About() {

@@ -7,6 +7,8 @@ import Snackbar from "@mui/material/Snackbar";
 
 import { close } from "../../actions/application";
 
+const DEFAULT_SNACKBAR_HIDE_DURATION = 6000; // 6 seconds
+
 function GlobalSnackbar() {
   const dispatch = useDispatch();
 
@@ -14,7 +16,6 @@ function GlobalSnackbar() {
   const message = useSelector((state) => state.application.snackbarMessage);
   const title = useSelector((state) => state.application.snackbarTitle);
   // const open = useSelector((state) => state.application.snackbarIsOpen);
-  console.log("open", open);
 
   const handleClose = () => {
     dispatch(close());
@@ -23,7 +24,7 @@ function GlobalSnackbar() {
   return (
     <Snackbar
       open={open}
-      autoHideDuration={6000}
+      autoHideDuration={DEFAULT_SNACKBAR_HIDE_DURATION}
       onClose={handleClose}
       anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
     >

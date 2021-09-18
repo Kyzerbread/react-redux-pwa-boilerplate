@@ -37,7 +37,6 @@ function App() {
     // authentication state listener
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // https://firebase.google.com/docs/reference/js/firebase.User
         dispatch(loginUser(user));
       } else {
         dispatch(logoutUser());
@@ -53,9 +52,9 @@ function App() {
       ) : (
         <>
           <Routes />
-          <GlobalSnackbar />{" "}
         </>
       )}
+      <GlobalSnackbar />
     </ThemeProvider>
   );
 }

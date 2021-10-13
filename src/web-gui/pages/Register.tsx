@@ -4,17 +4,10 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useSelector, useDispatch } from "react-redux";
 
-import useRouter from "../../hooks/useRouter";
 
-import { login } from "../../reducers/user";
-
-import { registerWithEmailAndPassword } from "../../firebase";
-
-import { LOGIN_URL } from "../../constants/urls";
 
 export default function Register() {
   const dispatch = useDispatch();
-  const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,11 +15,11 @@ export default function Register() {
 
   const handleRegister = async () => {
     try {
-      const user = await registerWithEmailAndPassword(email, password);
-      dispatch(login(user));
-      router.history.push(LOGIN_URL);
+    //   const user = await registerWithEmailAndPassword(email, password);
+    //   dispatch(login(user));
+    //   router.history.push(LOGIN_URL);
     } catch (err) {
-      console.err();
+      console.error(err);
     }
   };
 

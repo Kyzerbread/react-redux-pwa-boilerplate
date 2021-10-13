@@ -1,24 +1,26 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
 
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Snackbar from "@mui/material/Snackbar";
 
-import { close } from "../../actions/application";
-
 const DEFAULT_SNACKBAR_HIDE_DURATION = 6000; // 6 seconds
 
-function GlobalSnackbar() {
-  const dispatch = useDispatch();
-
-  const open = useSelector((state) => state.application.snackbarIsOpen);
-  const message = useSelector((state) => state.application.snackbarMessage);
-  const title = useSelector((state) => state.application.snackbarTitle);
+export default function GlobalSnackbar() {
+  const open = false;
+  const message = 'eer';
+  const title = 'title';
   // const open = useSelector((state) => state.application.snackbarIsOpen);
 
-  const handleClose = () => {
-    dispatch(close());
+  const handleClose = (
+    event: React.SyntheticEvent | React.MouseEvent,
+    reason?: string,
+  ) => {
+    // if (reason === 'clickaway') {
+    //   return;
+    // }
+
+    // setOpen(false);
   };
 
   return (
@@ -36,4 +38,3 @@ function GlobalSnackbar() {
   );
 }
 
-export default GlobalSnackbar;

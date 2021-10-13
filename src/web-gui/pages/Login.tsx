@@ -4,10 +4,6 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
 
-import { loginWithEmailAndPassword } from "../../firebase";
-
-import { loginUser } from "../../actions/user";
-import { snackbarError } from "../../actions/application";
 
 export default function Login() {
   //   const register = useSelector((state) => state.user);
@@ -18,11 +14,9 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const credentials = await loginWithEmailAndPassword(email, password);
-      console.log("useruser", credentials.user);
-      dispatch(loginUser(credentials.user));
+        // TODO: 
     } catch (err) {
-      dispatch(snackbarError("Login Error", err.message));
+        // TODO: 
     }
   };
 

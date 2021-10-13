@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -20,11 +19,9 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 
 const DRAWER_WIDTH = 240;
 
-export default function Navigation(props) {
+export default function Navigation(props: { window?: any; children: any; title?: "Responsive drawer" | undefined; }) {
   const { window, children, title = "Responsive drawer" } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -58,6 +55,7 @@ export default function Navigation(props) {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />

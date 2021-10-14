@@ -1,5 +1,7 @@
+import { User } from "./user";
+
 export type PurchaseTags = [string];
-export type PurchaseDescription = [string];
+export type PurchaseDescription = string;
 export enum Currency {
   CAN = "CAD",
   USD = "USD",
@@ -7,12 +9,13 @@ export enum Currency {
 
 export type Purchase = {
   id: UniqueId;
-  amount: number;
+  user: User;
+  price: PriceCents;
   currency: Currency;
   description: PurchaseDescription;
   tags: PurchaseTags;
 };
 
 export function getAmountFormatted(purchase: Purchase): string {
-  return purchase.amount.toString();
+  return `$${purchase.price.toString()}`;
 }

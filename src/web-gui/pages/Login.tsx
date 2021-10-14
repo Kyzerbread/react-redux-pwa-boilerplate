@@ -4,9 +4,14 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { UserName } from "../../domain/user";
 
+import { useAuthenticate } from "../../application/use-cases/useAuthenticate";
 
 export default function Login() {
-    //   const register = useSelector((state) => state.user);
+    const {
+        register,
+        login,
+        logout,
+        fetchUser, } = useAuthenticate();
 
     const [email, setEmail] = useState<UserName>("");
     const [password, setPassword] = useState<string>("");
@@ -15,7 +20,7 @@ export default function Login() {
     async function handleSubmit(e: React.FormEvent) {
         setIsLoading(true);
         try {
-            // TODO: 
+            login(email, password)
         } catch (err) {
             // TODO: 
         }

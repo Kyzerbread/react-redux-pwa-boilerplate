@@ -3,22 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 export const userSlice = createSlice({
   name: "user",
   initialState: {
+    isFetching: false,
     isAuthenticated: false,
-    firstName: "",
-    lastName: "",
+    user: undefined,
   },
   reducers: {
-    login: (state, action) => {
+    updateUser: (state, action) => {
       // const { email } = action.payload; // the user object will be here
-
-      state.isAuthenticated = true;
-    },
-    logout: (state) => {
-      state.isAuthenticated = false;
+      state.user = action.payload;
     },
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { updateUser } = userSlice.actions;
 
 export default userSlice.reducer;

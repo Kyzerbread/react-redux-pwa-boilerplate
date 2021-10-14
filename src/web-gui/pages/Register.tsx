@@ -2,8 +2,15 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { useAuthenticate } from "../../application/use-cases/useAuthenticate";
 
 export default function Register() {
+
+    const {
+        register,
+        login,
+        logout,
+        fetchUser, } = useAuthenticate();
 
     const [email, setEmail] = useState<Email>("");
     const [password, setPassword] = useState<string>("");
@@ -12,11 +19,7 @@ export default function Register() {
 
     async function handleSubmit(e: React.FormEvent) {
         setIsLoading(true);
-        try {
-            // TODO: 
-        } catch (err) {
-            // TODO: 
-        }
+        register(email, password);
         setIsLoading(false);
     };
 

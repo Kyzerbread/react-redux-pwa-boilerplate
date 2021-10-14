@@ -1,12 +1,9 @@
-declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      GITHUB_AUTH_TOKEN: string;
-      NODE_ENV: "development" | "production";
-      PORT?: string;
-      PWD: string;
-    }
-  }
-}
+declare var process: {
+  env: {
+    NODE_ENV: string;
+    PUBLIC_URL: string;
+  };
+};
+
 declare module "react-router-dom";
 declare module "query-string";
